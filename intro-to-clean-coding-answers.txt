@@ -1,0 +1,443 @@
+
+EXERCISES:
+
+1. In your own words, explain what clean code is and why it is important.
+
+	CLEAN CODE IS THE PRACTICE OF MAKING SURE THAT CODE IS MAINTAINABLE AND EASY TO UNDERSTAND, BOTH FOR THE SAKE OF OTHER DEVELOPERS AND TO REDUCE THE RISK OF HARD-TO-FIND BUGS.
+
+
+2. Read this article about Toyota and their use of bad code. Although you may not yet understand all of the topics discussed, think about another commonly used object that relies on computers and explain what would happen if the code was not created to an acceptable standard.
+
+	A COMMON OBJECT THAT IS FOUND IN MANY PEOPLES' HOMES IS A HOME SECURITY SYSTEM. BASIC HOME SECURITY SYSTEMS INCLUDE A CENTRAL CONTROL PANEL AND VARIOUS MOTION SENSORS PLACED THROUGHOUT THE HOME.  IF THE CODE WRITTEN INTO THE CONTROL PANEL IS NOT GOOD QUALITY, THEN THE SECURITY SYSTEM MAY MALFUNCTION.  THE ALARM MAY GO OFF AT RANDOM TIMES.
+
+
+3. Would you consider the following to be clean code? Explain why or why not. If not, refactor the code.
+
+FUNCTION do(x, y)             // Creating a new function
+
+IF y = "F" THEN               // Check if y is equal "F"
+
+SET z to (x−32) * (5/9)       // Formula to convert degrees fahrenheit to celsius
+
+PRINT z                       // Print result
+
+ELSE IF y = "C" THEN          // If y not equal to "F", check if equal to "C"
+
+SET z to x * 1.8000 + 32.00   // Formula to convert degrees celsius to fahrenheit
+
+PRINT z                       // Print result
+
+END IF
+
+END FUNCTION
+
+
+	THERE ARE FOUR PROBLEMS WITH THE ABOVE CODE.  THE IF STATEMENT IS TOO BULKY AND CAN BE EXTRACTED INTO THREE FUNCTIONS.  ALSO, THE COMMENTS IN THE ABOVE CODE ARE NOT NECESSARY TO UNDERSTAND 		WHAT IS GOING ON IN THE CODE AND SHOULD BE TAKEN OUT.  THE THIRD PROBLEM IS THAT THE VARIABLES "F" AND "C" ARE NOT INTUITIVE AND SHOULD BE SPELLED OUT AS "FAHRENHEIT" AND "CELSIUS" 			RESPECTIVELY.  THE FOURTH PROBLEM IS THAT THE FUNCTION NAME "do" is not descriptive and should be changed to "convertTemperature". THE REFACTORED CODE IS BELOW.  
+
+	FUNCTION convertTemperature(x, y) 
+	
+	IF y = "Fahrenheit" THEN
+	
+	CALL convertFahrenheit WITH (x, y)
+
+	ELSE CALL convertCelsius WITH (x, y)
+
+	END IF
+
+	END FUNCTION
+
+     ------------------------------------------
+	
+	FUNCTION convertFahrenheit(x, y) 
+
+	SET z to (x-32) * (5/9)
+
+	PRINT z
+
+     ------------------------------------------
+
+	FUNCTION convertCelsius(x, y) 
+
+	SET z to x * 1.8000 + 32
+
+	PRINT z
+
+
+4. Would you consider the following to be clean code? Explain why or why not. If not, refactor the code.
+	
+FUNCTION calcPercent(sum, total)
+
+ IF NOT(total = 0) THEN
+
+   SET percentage to sum / total * 100
+
+ ELSE
+
+   PRINT "Sorry, cannot divide by 0"
+
+ END IF
+
+ PRINT percentage
+
+END FUNCTION
+
+	
+	I BELIEVE THE ABOVE CODE IS CLEAN AND DOES NOT NEED REFACTORING.  THE FUNCTION IS A PERCENTAGE CONVERSION FUNCTION THAT IS NOT TRYING TO DO TWO THINGS AT ONCE, AND THUS DOES NOT BREAK THE SINGLE 	RESPONSIBILITY PRINCIPLE.  THERE ARE NO DEEPLY NESTED STATEMENTS THAT NEED EXTRACTION.  THERE ARE NO REDUNDANT COMMENTS, NOR ARE COMMENTS NEEDED TO HELP EXPLAIN THE FUNCTION'S PURPOSE.  ALTHOUGH 	'calcPercent' IS AN ABBREVIATION, I THINK THE NAME OF THE FUNCTION IS STILL DESCRIPTIVE ENOUGH TO NOT NEED REFACTORING.  
+
+
+
+5. Using pseudocode, refactor the code for the following examples using the principles you have learned in this checkpoint.
+
+
+a. The following function prints the subtotal of a customer's transaction and receives payment accordingly.
+
+
+FUNCTION checkOutCustomer(subTotal, discountRate, paymentType)
+
+   PRINT "Your total due is: " + subTotal * discountRate + (subTotal * tax)
+
+   IF paymentType = 'CASH' THEN
+
+       CALL getPayment RETURNING amount
+
+       PRINT "Change due: " + amount - subTotal * discountRate + (subTotal * tax)
+
+   ELSE IF paymentType = 'CREDIT CARD' THEN
+
+       CALL getPayment RETURNING amount
+
+       PRINT "Your credit card has been charged: " + subTotal * discountRate + (subTotal * tax)
+
+   END IF
+
+END FUNCTION
+
+
+	THE ABOVE FUNCTION DOES NOT PASS THE SINGLE RESPONSIBILITY PRINCIPLE AND SHOULD BE EXTRACTED INTO TWO DIFFERENT FUNCTIONS, ONE TO DETERMINE WHETHER CASH OR CREDIT CARD WAS USED, ONE TO 		CALCULATE A CASH PAYMENT, AND ONE TO CALCULATE A CREDIT CARD PAYMENT.  THE REFACTORED CODE IS BELOW. 
+
+
+	FUNCTION checkOutCustomer(subTotal, discountRate, paymentType)
+
+		PRINT "Your total due is: " + subTotal * discountRate + (subTotal * tax)
+	
+		CALL payMethod WITH paymentType
+
+	END FUNCTION
+
+
+	FUNCTION payMethod(subTotal, discountRate, paymentType) 
+
+		CALL getPayment RETURNING amount
+
+		IF paymentType = "CASH" THEN
+
+		     PRINT "Change due: " + amount - subTotal * discountRate + (subTotal * tax)
+
+		ELSE IF paymentType = "CREDIT CARD" THEN
+
+		     PRINT "Your credit card has been charged: " + subTotal * discountRate + (subTotal * tax)
+
+		END IF
+
+	END FUNCTION
+
+
+
+
+b. The following function checks out a book if there are no issues with the guest's account.
+
+FUNCTION checkoutBook(book, guest)
+
+   IF guest.accountActive THEN
+
+       IF NOT(guest.hasOverdueBooks) THEN
+
+           IF guest.outstandingFees = 0 THEN
+
+             APPEND book to guest.books
+
+             SET book.status to "Checked Out"
+
+             PRINT "Your books have been issued."
+
+           END IF
+
+       END IF
+
+   ELSE
+
+       PRINT "Unable to check out book."
+
+   END IF
+
+END FUNCTION
+
+
+	THE ABOVE CODE HAS TOO MANY NESTED IF STATEMENTS AND SHOULD BE REFACTORED INTO TWO FUNCTIONS.  THE REFACTORED CODE IS BELOW.
+
+
+	FUNCTION checkoutBook(book, guest)
+
+	   IF guest.accountActive THEN
+	       
+		CALL bookFees
+
+	   ELSE 
+
+		PRINT "Your library account is not currently active."
+
+	   END IF
+
+        END FUNCTION
+
+
+	FUNCTION bookFees(book, guest)
+
+	    IF NOT(guest.hasOverdueBooks) && guest.outstandingFees = 0 THEN
+
+		APPEND book to guest.books
+
+		SET book.status to "Checked Out"
+
+		PRINT "Your books have been issued." 
+
+	    ELSE
+
+		PRINT "Unable to check out book."
+	    
+	    END IF
+
+	END FUNCTION
+
+
+c. The following class is a code snippet that should support the transactions a customer can perform at an ATM.
+
+
+CLASS BankAccount
+
+
+FUNCTION displayBalance
+
+    PRINT balance
+
+END FUNCTION
+
+
+FUNCTION deposit(amount)
+
+    SET balance to balance + amount
+
+END FUNCTION
+
+
+FUNCTION withdraw(amount)
+
+     IF balance > amount THEN
+
+       SET balance to balance - amount
+
+     END
+
+END FUNCTION
+
+
+FUNCTION creditCardOffer
+
+     IF NOT(customer.hasCreditCard) THEN
+
+         CALL offerCreditCard
+
+     END
+
+END FUNCTION
+
+
+FUNCTION checkStatus
+
+     IF NOT(customer.hasCheckingAccount) THEN
+
+         CALL offerCheckingAccount
+
+     END
+
+END FUNCTION
+
+....
+....
+....
+
+END
+
+
+	THE CLASS NAME IN THE ABOVE CODE SNIPPET IS NOT DESCRIPTIVE ENOUGH.  THE ABOVE CODE LISTS OUT ATM TRANSACTIONS SO THE CLASS NAME SHOULD MAKE A REFERENCE TO ATM'S.  THE creditCardOffer FUNCTION DOES NOT BELONG IN A CLASS FOR ATM TRANSACTIONS AND WILL NEED TO BE REMOVED AND PUT IN ITS OWN CLASS.  THE checkStatus FUNCTION NAME DOES NOT MATCH WELL WITH THE PURPOSE OF THE FUNCTION.  THE REFACTORED CODE IS BELOW.
+
+
+	CLASS AtmTransactions
+
+	
+	FUNCTION displayBalance
+
+   	    PRINT balance
+
+	END FUNCTION
+
+
+	FUNCTION deposit(amount)
+
+   	    SET balance to balance + amount
+
+	END FUNCTION
+
+
+	FUNCTION withdraw(amount)
+
+     	    IF balance > amount THEN
+
+      		 SET balance to balance - amount
+
+    	    END IF
+
+	END FUNCTION
+
+
+	FUNCTION hasCustomerCheckingAccount
+
+     	    IF NOT(customer.hasCheckingAccount) THEN
+
+        	 CALL offerCheckingAccount
+
+      	    END IF
+
+	END FUNCTION
+
+	....
+	....
+	....
+
+	END CLASS
+
+
+	
+	CLASS CreditCard
+
+
+	FUNCTION creditCardOffer
+
+    	    IF NOT(customer.hasCreditCard) THEN
+
+        	 CALL offerCreditCard
+
+    	    END IF
+
+	END FUNCTION
+
+	....
+	....
+	....
+
+	END CLASS
+
+
+
+
+Programming Questions
+
+You may do the following problems in any language of your choice. Use the clean code principles taught in this section while writing the code.
+
+
+6. Given an array of integers, find out whether the sum of the integers is a perfect square. If it is a perfect square, return the square root, otherwise return the sum.
+
+
+	PSEUDOCODE
+	
+		FUNCTION computePerfectSquare(integerArray) 
+
+		    SET arrayTotal EQUAL TO the total of the numbers in integerArray
+
+		    IF remainder of square root of arrayTotal equals 0 THEN
+
+			  RETURN square root
+
+		    ELSE 
+
+			  RETURN arrayTotal
+
+		    END IF
+
+		END FUNCTION
+
+
+	JAVASCRIPT
+
+		const computePerfectSquare = function(integerArray) {
+		  const arrayTotal = integerArray.reduce(function(accumulator, currentValue) {
+    	       	    return accumulator + currentValue;
+      		  });  		
+		  if ( arrayTotal % Math.sqrt(arrayTotal) === 0 ) {
+		    return Math.sqrt(arrayTotal);
+		  }
+		  else return arrayTotal;		
+		}	
+
+
+		console.log(computePerfectSquare([3, 4, 5, 6, 7, 11]));
+
+
+
+
+7. Given an array of integers, find out whether the array contains any duplicate elements. The function should return true if any value appears at least twice in the array, and false if every element is distinct.
+
+	
+	PSEUDOCODE
+
+		FUNCTION isDuplicate(array) 
+
+		   SET sortedArray equal to the array argument sorted
+
+	           FOR each index of sortedArray
+
+		      IF index + 1 of sortedArray is equal to the index of sortedArray THEN
+
+		         RETURN true;
+
+		      END IF
+
+		   END FOR LOOP
+
+		   RETURN FALSE				
+
+		END FUNCTION
+
+
+
+	JAVASCRIPT
+
+		const isDuplicate = function(array) {
+   		  const sortedArray = array.slice().sort();
+    		  for ( i = 0; i < sortedArray.length; i++ ) {
+       		    if ( sortedArray[i + 1] === sortedArray[i]) {
+                      return true;
+                    }
+                  }
+                  return false;
+                }
+
+		console.log(isDuplicate([1, 2, 3, 4, 5, 6]))
+
+
+	
+		
+
+
+
+
+
+
+		
+
+		
+
+		
+
+
+

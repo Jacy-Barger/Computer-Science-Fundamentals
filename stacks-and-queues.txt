@@ -1,0 +1,154 @@
+
+EXERCISES
+
+1. What is the main difference between a stack and a queue?
+
+	THE STACK DATA STRUCTURE PRIORITIZES DATA USING A LAST-IN FIRST-OUT IMPLEMENTATION.  THE MOST RECENT ITEM ADDED TO THE DATA COLLECTION IS ALSO THE FIRST TO LEAVE.  THE QUEUE DATA STRUCTURE USES 	THE FIRST-IN FIRST-OUT DATA IMPLEMENTATION.  THE FIRST ITEM OF DATA COMING IN WILL BE THE FIRST TO GO OUT. 
+
+
+
+2. What are the similarities between stacks and queues?
+
+	STACKS AND QUEUES ARE BOTH LINEAR DATA STRUCTURES, AND BOTH STRUCTURES HAVE AN ENTRY/INPUT POINT AND AN EXIT/OUTPUT POINT FOR DATA. 
+
+
+
+3. Imagine you are an engineer tasked with implementing the UNDO and REDO options in a word processor such as Microsoft Word. Which data structure would you use for each option and why?
+
+	
+	Both UNDO and REDO would use the stack data structure.  This is because the stack is implemented with the LIFO data structure which is equivalent to the logical flow of the UNDO and REDO 		operations. When a user issues commands into a Word document (such as typing a new letter or deleting a paragraph), those commands are kept in an UNDO stack that 'pops' when the user clicks the 	UNDO button and the most recent action is removed from the Word document.  
+
+	Regarding the REDO command when a user clicks the undo command, the 'popped' command is put into a REDO stack in which subsequent UNDO is kept as the most recent REDO.  When a user clicks the 	REDO button, the most recent UNDO command is re-applied to the Word document.  
+
+
+PROGRAMMING QUESTIONS
+
+You may program the following question in any language of your choice. Before you begin coding, write out a plan as to how you will solve the question.
+
+
+1. Given a string, reverse it using a stack. For example, the string "Bloc!" should be converted to "!colB".
+
+	PLAN
+		1. Create a function that takes a string as the argument.
+		2. Assign an empty array called wordArray.
+		3. Assign an empty string called reverseString.
+		4. Use a for loop to push the string argument into the wordArray array.
+		5. Use a for loop to pop wordArray and add the reversed string to the reverseString variable.
+		6. Return the reversed string.
+
+	
+	JAVASCRIPT
+
+		const reverse = function(originalString) {
+    
+ 		  const wordArray = [];
+    
+  		  let reverseString = ''
+    
+  		  for ( i = 0; i < originalString.length; i++ ) {
+		    wordArray.push(originalString[i]);
+		  }  
+    
+ 		 for ( i = 0; i < originalString.length; i++ ) {
+   		   reverseString = reverseString + wordArray.pop();
+  		 }
+    
+  		 return reverseString;     
+    
+		 }
+
+	       console.log(reverse("Hello"))
+
+	
+
+2. Implement the pop method of a stack using one queue. Make a FIFO data structure mirror the functionality of a LIFO data structure. Since the internal list is not the same as defined in the checkpoint, it may help to rewrite the pseudocode first.
+
+	
+	PLAN
+		1. Create a class called Stack.
+		2. Initialize a constructor function with a this.pop method that takes a string as an argument.
+		3. Create an empty queue called newQueue and use a for loop to push in the items from string for which each iteration matches the length of the string. 
+		4. Push the remaining items into an empty array.
+
+
+		
+		class Stack {
+  		  constructor(){
+    		    this.pop = function(originalString){
+        
+    		    const newQueue = [];
+        
+     	  	    const remainingItem = [];
+       
+    		      for( let i = 0; i < originalString.length; i++ ){
+     		        if( i === originalString.length - 1 ){
+        	          newQueue.push( originalString[i] );
+     		        }
+        		else {
+        		  remainingItem.push( originalString[i] );
+      		        }
+     		      }
+       
+  		      return newQueue;   
+       
+ 		    }
+  		  }
+		}
+
+		const stack = new Stack();
+		console.log(stack.pop('Apple'))
+
+
+
+
+
+3. Implement the enqueue and dequeue methods defined in the checkpoint inside your own Queue class.
+
+	PLAN
+		1. Create a Queue class and add a constructor function with an empty queue called newQueue.  
+		2. Create an enqueue method that takes any array as a parameter and uses the unshift method to add each item in the array to the newQueue array.
+		3. Create a dequeue method the removes and returns the first item that was added to the newQueue array.
+
+		
+		class Queue {
+    
+   		  constructor() {
+                    this.newQueue = []
+                  }
+    
+                  enqueue(array) {
+      	            for ( let i = 0; i < array.length; i++ ) {
+                      this.newQueue.unshift(array[i]); 
+                    }
+  	          }
+    
+ 	          dequeue() {
+       		    return this.newQueue.pop();
+    		  }
+    
+	        }
+
+
+		const queue = new Queue
+
+		queue.enqueue([5, 3, 2, 7, 9]);
+
+		console.log(queue.newQueue);
+
+		console.log(queue.dequeue())
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+

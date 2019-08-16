@@ -1,0 +1,125 @@
+
+EXERCISES:
+
+	1. Using proper pseudo-code, describe the following primitive algorithms:
+
+
+
+	Making coffee:
+
+	
+	FUNCTION make coffee
+	  IF coffee filters are available THEN
+	    place coffee filter into coffee machine
+	  ELSE make a note to buy more coffee filters AND end process
+	  END IF
+	  IF coffee ground available is MORE THAN 1 cup THEN
+	    place coffee ground into coffee machine
+	  ELSE make a note to buy more coffee ground AND end process
+	  END IF
+	  WHILE coffee is not ready
+	    press the coffee machine on switch
+	    do not press the coffee machine off switch
+	  END WHILE
+	  PRINT coffee is ready
+	END FUNCTION
+	  
+
+ 	    
+
+	Washing dishes:
+
+
+	FUNCTION wash dishes 
+	  IF dirty dishes not present
+	    end process
+	  END IF
+	  IF sponge AND dish detergent not available 
+	    make note to buy sponge and dish detergent
+	    end process
+	  END IF
+	  IF sink is not full of water
+	    WHILE sink is not full of water
+	      INCREMENT water
+	    END WHILE
+	  END IF
+	  ADD dish detergent to water
+	  FOR EACH dirty dish
+	    put dirty dish in the sink
+	    scrub with sponge
+	  END FOR EACH
+	  FOR EACH dish in the sink
+	    IF dish is clean
+	      remove dish from sink
+	      place dish on drying rack
+	    END IF
+	  END FOR
+	END FUNCTION
+	  
+
+
+
+	A choice of your own:
+
+
+	SETTING A DINNER TABLE
+
+
+	FUNCTION set table
+	  IF silverware AND plates not available
+	    retrieve from cabinets
+	  END IF
+	  IF dinner table is not clear
+	    remove objects from dinner table
+	  END IF
+	  IF table cloth is available
+	    cover table with table cloth
+	  ELSE continue without table cloth
+	  END IF
+	  FOR EACH place at the table
+	    IF there is no plate
+              add a plate
+	    END IF
+	    IF there is no silverware
+	      add silverware
+	    END IF
+	  END FOR EACH
+	END FUNCTION
+
+
+	
+
+	2. As with the knot algorithm, there may be more than one way to solve the problem. It is essential to try to pick the best algorithm for a situation. Name three companies who created an algorithm that made them successful, e.g., Google's search algorithm. It doesn't need to be a tech example (such as a recipe or manufacturing a product). Google's algorithm produces more relevant results than other search engines; what about each of your cases make them stand out?
+
+a. Chipotle Restaurants: In many fast food and fast casual restaurants, customers must pick their orders from a static list of pre-set meal combinations (such as double cheeseburger, fries, and a drink, ect).  Chipotle uses a customer ordering algorithm that allows patrons to get more involved in ordering their meals.  A customer enters a line on one end and can order a bowl, burrito, or combination of each by selecting their choice of beans, salsas, cheeses, meats, and tortillas.  Customers can get a customized food order quickly.
+
+b. Wal Mart: Wal Mart has been a hugely successful department store for the past several decades.  In the 80's and 90's the company used an aggressive store acquisition algorithm that led Wal Mart to build stores and distribution centers in thousands of locations in the United States and over seas.  Today, there are around 4,700 Wal Mart stores in the US alone.  
+
+c. Asana: Asana is a company that sells project management software, as well as other software packages that help businesses meet their goals.  Although its products are highly rated, that isn't all that helps the company to stand out.  It also stands out thanks to its clever and generous marketing algorithm.  The company markets itself to businesses with a more modern, vibrant culture and allows prospective clients to try the software for free for 30 days for up to 100 employees while using all the standard features of the fully paid product.  
+
+
+
+
+
+	 3. Hypothesize about what constitutes an efficient algorithm versus an inefficient algorithm.
+
+	    An efficient algorithm has well defined and consistent steps throughout the entire process.  Potential errors are acknowledged ahead of time and handled within the algorithm itself.  For example, an algorithm for making a peanut butter sandwich could start with a step verifying that there is peanut butter, jelly, and bread available before starting the process.  An inefficient algorithm won't be set up to handle potential errors smoothly.  On the other hand, an efficient algorithm shouldn't be bloated with unnecessary steps.  A large number of redundant steps could make an algorithm too cumbersome to be worth it.  Also, time complexity of the algorithm plays a role as well.  For example, an algorithm with exponential time complexity will be expensive to run, especially as the input increases.  
+
+
+
+
+	   
+	      
+	    
+	  
+
+
+
+
+
+
+
+
+
+
+

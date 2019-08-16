@@ -1,0 +1,351 @@
+
+
+WRITTEN QUESTIONS
+
+1. What are some pros and cons of using linked lists instead of arrays?
+
+	THE PROS OF LINKED LISTS INCLUDES: 
+
+		i.   Inserting new items in the middle or beginning of a list does not require the rest of the items to shift positions to accommodate the new item.  In large arrays, this process can be 		     expensive. In large linked lists this procedure is not a problem since a random bit of memory can be used to store a new node.
+		ii.  Since a linked list is placed at random points in memory and linked to other nodes in the list using pointers, a continuous block of memory is not needed and fragmented memory can 		     be put to better use.
+		iii. Overflow does not occur unless the memory is actually full.
+
+	THE CONS OF LINKED LISTS INCLUDES:
+	
+		i.   The pointers needed for each linked list node requires extra memory space.  Arrays do not require pointers.
+		ii.  Linked lists are more relatively complex to use than arrays.
+		iii. Items in a linked list must be accessed in order, as opposed to array items which can be accessed immediately with the correct index. 
+
+
+
+2. Come up with a real world example of a linked list.
+
+	An example of a real world linked list would be the web browser history.  When a web site is visited, a linked list of web pages visited is kept.  Checking the history section of a web browser 	will show all of the sites visited.  By clicking on a visited website, the previous nodes data is fetched.   
+
+
+PROGRAMMING QUESTIONS
+
+
+	Before beginning to code, write out a plan explaining how to solve the question.
+
+	The linked list push function should take a value, create a node, and add it to the end of a list. Below is pseudocode for a push function for a singly linked list. However, there is something 	wrong with it. Submit both an explanation of the bug and a functional implementation of the method.
+
+	FUNCTION push(element)
+
+	CREATE node
+
+	SET node.value TO element
+
+	SET node.next TO null
+
+	IF the head node does not exist
+
+	 THEN SET head to node
+
+	ELSE
+
+	 SET current to head
+
+	 SET current.next to node
+
+	END IF
+
+	END FUNCTION
+
+
+			ANSWER:
+
+				The bug in the above code has to do with the 'SET current.next to node' section of the code.  If implemented, that line of code would cause every new 'element' added to the function to overwrite the 2nd node in the linked list.  This is because the line of code 'SET current.next to node' fails to properly iterate to the end of the list (assuming the list contains more than one node).  A while loop would provide a good solution to the problem and has been implemented in the code below.
+
+
+
+			class Node {
+ 			  constructor(data, next = null) {
+   			  this.data = data;
+   			  this.next = next;
+ 			  }
+			}
+
+			class LinkedList {
+ 			  constructor() {
+  			    this.head = null
+ 			  }
+
+
+ 			 push(element) {
+    
+    			   let node = new Node(element);
+    
+  			   if (!this.head) {
+  			     this.head = node;
+  			   }
+  			   else {
+   			     let current = this.head;
+        
+    			     while (current.next !== null) {
+       			     current = current.next;
+        		   }
+    
+  		           current.next = node;
+   			 }
+    
+ 			}
+		       }
+
+			const test = new LinkedList
+			test.push(20);
+			test.push(37);
+			test.push(41);
+			test.push(58);
+
+			console.log(test); 
+
+
+
+
+
+
+2. Given an unsorted singly linked list, remove all duplicates from the linked list.
+
+	THE BELOW LINKED LIST CONTAINS A removeDuplicate FUNCTION THAT TAKES AN UNSORTED LINKED LIST AND REMOVES ANY DUPLICATE ELEMENTS.
+
+	PLAN:
+	     1. Add a removeDuplicate method to the LinkedList class.
+	     2. Set two variables, current and next, to be used when iterating through each node. 
+	     3. Set up a while loop to iterate through each node adding them to a hash table. 
+	     4. When a duplicate element is found, it will be removed from the linked list and the linked list will be updated. 
+
+
+
+class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
+
+class LinkedList {
+  constructor() {
+    this.head = null
+  }
+
+  insertFirst(data) {
+    this.head = new Node(data, this.head);
+  }
+    
+  getAt(index) {
+      let counter = 0;
+      let node = this.head;
+      while (node) {
+        if (counter === index) {
+          return node;
+        }
+          
+        counter++;
+        node = node.next;
+      }
+      return null;
+  }    
+    
+  getLast() {
+    if (!this.head) {
+      return null;
+    }
+    let node = this.head;
+    while (node) {
+      if (!node.next) {
+        return node;
+      }
+      node = node.next;
+    }
+  }
+
+  insertAt(data, index) {
+    if (!this.head) {
+      this.head = new Node(data);
+      return;
+    }
+    if (index === 0) {
+      this.head = new Node(data);
+      return;
+    }
+    const previous = this.getAt(index - 1) || this.getLast();
+    const node = new Node(data, previous.next);
+    previous.next = node;
+  }
+    
+  insertLast(data) {
+    const last = this.getLast();
+      
+    if (last) {
+      last.next = new Node(data);
+    }
+    else {
+      this.head = new Node(data);   
+    }
+  }
+    
+  removeDuplicate() {
+    if (!this.head || !this.head.next) {
+        return
+    }
+    
+    let current = this.head;
+    let next = current.next;
+    let nodes = {};
+    nodes[current.data] = true;
+    
+    while (next) {
+      let data = next.data;
+      if (nodes[data]) {
+        current.next = next.next;
+      }
+      else {
+        nodes[data] = true;
+        current = next;
+      }
+      next = next.next;
+    }
+  }
+    
+}
+
+const test = new LinkedList;
+test.insertFirst(5);
+test.insertLast(3);
+test.insertLast(7);
+test.insertLast(3);
+test.insertLast(5);
+test.insertLast(9);
+test.insertLast(2);
+test.insertLast(5); 
+
+test.removeDuplicate();
+
+console.log(test);
+
+
+
+
+
+3. Given an unsorted singly linked list, reverse it.
+
+
+	THE BELOW LINKED LIST CONTAINS A reverseList FUNCTION THAT TAKES AN UNSORTED LINKED LIST AND REVERSES EACH ELEMENT.
+
+	PLAN:
+	     1. Add a reverseList method to the LinkedList class.
+	     2. Set three variables: previous equal to null, current equal to this.head, and next equal to null. 
+	     3. Use a while loop to iterate through the linked list as long as current is not null.
+	     4. Inside the while loop, set next to current.next to move the next pointer from null to the node after current.
+	     5. Set current.next to previous to point the first node in the list from the second node to null.
+	     6. Set previous equal to current to move the previous pointer from null to the first node in the list. 
+	     7. Set current equal to next to move the current nodes position to the next node in the list.  
+	     8. The while loop is repeated until the current node is set to null which marks the end of the linked list. This
+		will set all of the pointers to the 'opposite' node and set the last node in the list as the 'first node'.
+	 
+
+
+
+class Node {
+  constructor(data, next = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
+
+class LinkedList {
+  constructor() {
+    this.head = null
+  }
+
+  insertFirst(data) {
+    this.head = new Node(data, this.head);
+  }
+    
+  getAt(index) {
+      let counter = 0;
+      let node = this.head;
+      while (node) {
+        if (counter === index) {
+          return node;
+        }
+          
+        counter++;
+        node = node.next;
+      }
+      return null;
+  }    
+    
+  getLast() {
+    if (!this.head) {
+      return null;
+    }
+    let node = this.head;
+    while (node) {
+      if (!node.next) {
+        return node;
+      }
+      node = node.next;
+    }
+  }
+
+  insertAt(data, index) {
+    if (!this.head) {
+      this.head = new Node(data);
+      return;
+    }
+    if (index === 0) {
+      this.head = new Node(data);
+      return;
+    }
+    const previous = this.getAt(index - 1) || this.getLast();
+    const node = new Node(data, previous.next);
+    previous.next = node;
+  }
+    
+  insertLast(data) {
+    const last = this.getLast();
+      
+    if (last) {
+      last.next = new Node(data);
+    }
+    else {
+      this.head = new Node(data);   
+    }
+  }
+    
+  reverseList() {
+    
+    let previous = null;
+    let current = this.head;
+    let next = null;
+    
+    while (current !== null) {
+      next = current.next;
+      current.next = previous;
+      previous = current;
+      current = next;
+    }
+    this.head = previous;
+  }    
+    
+}
+
+const test = new LinkedList;
+test.insertFirst(1);
+test.insertFirst(2); 
+test.insertAt(44, 2); 
+test.insertLast(63);
+
+test.reverseList();
+
+console.log(test);
+
+				
+
+
+
+		

@@ -1,0 +1,170 @@
+
+QUESTIONS
+
+	1. What is a binary tree and what makes it unique to other trees?
+
+		Tree data structures are a non-linear data structure that differ from other data structures, such as arrays, by storing data in a hierarchy.  In a tree data structure, data is stored using nodes which may connect to any number of child nodes.  A binary tree is a tree data structure with the added restriction of having no more than two child nodes per node. The restriction of having only a 'left' and 'right' node makes the binary tree very efficient when storing and retrieving values.
+
+	2. What is a heuristic?
+
+		In terms of algorithms, a heuristic is a function that ranks alternatives at each branching step based on available information.  It is useful in dealing with data sets that provide many possible solutions to a problem.  Accuracy of a solution is generally sacrificed for speed and efficiency.  		
+
+	3. What is another problem besides the shortest-path problem that requires the use of heuristics?
+
+		Another real world problem that requires the use of heuristics is anti-virus software.  Older anti-virus software used string scanning methods to detect the presence of malware, but this method is not always able to detect self-modifying viruses that may not match the exact code string the anti-virus software is looking for.  Heuristic anti-virus software looks for code behavioral patterns that match a particular type of malware.  If a file is executed and it is found to have behavior that matches a certain class of viruses, then the anti-virus software infers that the file is infected.
+
+	4. What is the difference between a depth-first search and a breadth-first search?
+
+		A depth-first search starts at the root node and searches the nodes along each branch until a null value is reached.  When a null value is reached, the search moves on to the next branch and repeats the process until each node in the tree is visited or the value being searched for is returned.  Breadth-first traversal visits each node in a hierarchal fashion starting with the root node and working its way down.
+
+	5. Explain in your own words what an undirected, a-cyclic, unweighted graph is.
+
+		A graph in which two or more nodes are connected with no defined start or end node, the graph does not loop around to create a circular set of nodes, and there is no cost of travel assigned to traveling between the nodes. 
+
+	6. What kind of graph is a binary search tree?
+
+		Directed, a-cyclic, unweighted
+
+
+
+PROGRAMMING EXERCISES
+
+	1. Given a Binary Search Tree and a value, write a function that checks to see whether the value exists within the tree.
+
+		
+class BST {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+    
+  insertData(value) {
+    if (value <= this.value) {
+      if (!this.left) this.left = new BST(value);
+      else this.left.insertData(value);
+    }
+    else if (value > this.value) {
+      if (!this.right) this.right = new BST(value);
+      else this.right.insertData(value);
+    }
+  }
+    
+  searchData(value) {
+    if (value === this.value) return true;
+    else if (value < this.value) {
+      if (!this.left) return false;
+      else return this.left.searchData(value);
+    }
+    else if (value > this.value) {
+      if (!this.right) return false;
+      else return this.right.searchData(value);
+    }
+  }   
+ 
+}
+
+const bst = new BST(50);
+
+bst.insertData(10);
+bst.insertData(30);
+bst.insertData(70);
+bst.insertData(35);
+bst.insertData(110);
+bst.insertData(65);
+bst.insertData(200);
+bst.insertData(5);
+bst.insertData(47);
+Bst.insertData(81);
+
+console.log(bst); 
+
+console.log(bst.searchData(81));
+
+
+
+	2. Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
+
+
+class BST {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+    
+  insertData(value) {
+    if (value <= this.value) {
+      if (!this.left) this.left = new BST(value);
+      else this.left.insertData(value);
+    }
+    else if (value > this.value) {
+      if (!this.right) this.right = new BST(value);
+      else this.right.insertData(value);
+    }
+  }
+    
+  searchData(value) {
+    if (value === this.value) return true;
+    else if (value < this.value) {
+      if (!this.left) return false;
+      else return this.left.searchData(value);
+    }
+    else if (value > this.value) {
+      if (!this.right) return false;
+      else return this.right.searchData(value);
+    }
+  }    
+
+  getDistance(n1, n2) {
+    if (this.value === null) {
+      return 0;
+    }
+    if (this.value > n1 && this.value > n2) {
+      return this.left.getDistance(n1, n2);
+    }
+    if (this.value < n1 && this.value < n2) {
+      return this.right.getDistance(n1, n2);
+    }
+    else return this.findDepthToNode(n1) + this.findDepthToNode(n2);
+  }
+    
+  findDepthToNode(n) {
+    if (this.value === null) {
+      return -1;
+    }
+    if (n === this.value) {
+      return 0;
+    }
+    if (this.value > n) {
+      return 1 + this.left.findDepthToNode(n);
+    }
+    else {
+      return 1 + this.right.findDepthToNode(n);
+    }
+  }
+    
+    
+}
+
+
+const bst = new BST(50);
+
+bst.insertData(10);
+bst.insertData(30);
+bst.insertData(70);
+bst.insertData(35);
+bst.insertData(110);
+bst.insertData(65);
+bst.insertData(12);
+bst.insertData(100);
+bst.insertData(3);
+
+console.log(bst);
+
+console.log(bst.searchData(70));
+
+console.log(bst.getDistance(3, 65));
+
+
+

@@ -1,0 +1,123 @@
+
+EXERCISES
+
+1. What is time complexity and what is its relation to algorithms?
+
+	Time complexity is the measure of time it takes for a function to run.  Time complexity increases as the amount of inputs into the function increase.  When calculating time complexity, the input is assumed to be infinite because it is best practice to take the 'worst case' scenario into account.  The relation of time complexity to algorithms pertains to the number of times a statement within the algorithm will run based on the number of inputs received, represented by (n).  
+
+
+2. What is runtime?
+
+	Runtime is another word commonly used to refer to the time complexity of an algorithm.  
+
+
+3. How is the runtime of an algorithm calculated?
+
+	For a given algorithm, each individual statement within the algorithm is examined separately.  The time complexity of each statement is determined.  For example, a statement may run only once during the algorithm regardless of how many inputs (n) there are, which would make this statement constant or O(1). To continue the example, the statement also has a while loop with a linear time complexity O(n) which is run once for each input.  Between the two statements, the worst case scenario would be chosen as the basis for calculating time complexity for the entire algorithm, which would be O(n) in this example.  
+
+
+
+4. Name the six types of algorithm growth rates we saw in this checkpoint and list them in order of most efficient to least efficient. Now Google another algorithmic growth rate not covered and place it in the correct spot in your list.
+
+	Constant Growth Rate -- O(1)
+	Logarithmic Growth Rate -- O(log n)
+	Linear Growth Rate -- O(n)
+	Log-Linear Growth -- O(n log n)
+	Quadratic Growth Rate -- O(n^2)
+	Exponential Growth Rate -- O(2^n)
+	Factorial Time -- O(n!)
+
+	Algorithms with factorial time complexity will execute in (n) factorial times for every new operation.  Factorial time complexity is extremely inefficient. 
+
+
+
+
+5. Choose one of the algorithmic growth rates from the last question and make a comparison to a real-life situation.
+
+	
+	A professor is giving a lecture to a class of 20 students.  Since the lesson will be especially complicated, she needs to give each student an instructional manual so they can all follow along with the lecture.  She walks past each students' desk and gives them the manual one-by-one.  Five late students finally make it to class and sit at their desks, so the professor walks by each of their desks and gives each of them a manual as well.  This would be an example of linear time complexity.  The action of handing out the manual is done for each student in the class, and the action grows in proportion to any new students who might walk into class late.  
+
+
+	
+
+6. Determine the time complexity of the following snippet of code. It is commonly known as a linear search.
+
+FUNCTION linearSearch(array, target)
+
+ FOR each number in the array
+
+   IF number = target THEN
+
+     RETURN true
+
+   END IF
+
+ END FOR
+
+ RETURN false
+
+END FUNCTION
+
+
+	The linear search has a time complexity of O(n).  The IF statement has a time complexity of O(1) and the FOR EACH statement has a time complexity of O(n).  The worst case scenario is therefore O(n). 
+
+
+
+7.  Determine the time complexity of the following snippet of code.
+
+FUNCTION foo(array)
+
+ FOR each number in the array
+
+   FOR each number in the array
+
+     print "Hello"
+
+   END FOR
+
+ END FOR
+
+END FUNCTION
+
+
+	The above code has a time complexity of O(n^2) which is a quadratic growth rate.  Both the outer and nested for each loops have time complexities of O(n).
+
+
+
+
+8. Determine the time complexity of the following snippet of code. It is commonly known as the Fibonacci sequence.
+
+FUNCTION fibonacci(number)
+
+ IF number < 1 THEN
+
+   ERROR
+
+ ELSE IF number = 1 or 2 THEN
+
+   RETURN 1
+
+ ELSE
+
+   CALL fibonacci WITH number - 2 RETURNING twoBack
+
+   CALL fibonacci WITH number - 1 RETURNING oneBack
+
+   RETURN twoBack + oneBack
+
+ END IF
+
+END FUNCTION
+
+
+	The above fibonacci function uses recursive statements.  Recursive statements have time complexity of O(2^n) which is an exponential growth rate.  The entire function will continue to call itself until the number argument is either 1, 2, or less than 1.
+
+
+
+
+9. Out of the code snippets you just saw, which is the most time efficient?
+
+	The linear search function
+
+
+

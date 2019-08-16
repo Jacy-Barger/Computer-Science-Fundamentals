@@ -1,0 +1,79 @@
+
+EXERCISES
+
+
+1. Define and compare recursion and iteration.
+
+	Recursion and iteration are both ways of cycling through sets of data.  The difference is through the cycling method.  Recursion involves a function calling itself while iteration uses a looping function to iterate through a data set.  
+
+
+
+
+2. Name five algorithms that are commonly implemented by recursion.
+
+	Reversing a string
+	Binary tree search
+	Merge sort
+	Quick sort
+	Fibonacci sequence
+
+
+3. When should you use recursion, and when should you avoid recursion? Give examples for each.
+
+	Recursion should only be used if there is no iterative solution possible to solve the problem, or the iterative solution is so complicated to implement that it's not worth it.  Recursion is a more expensive procedure than iteration.  A large data, cycled through with recursion, can have exponential time complexity.  Whereas, a single for or while loop will have linear time complexity and be much less expensive to implement than a comparable recursive solution. 
+
+
+
+
+4. Compare the recursive and iterative solutions to the three algorithms from the checkpoint (factorial, maximum, and fibonacci). What is similar, and what is different?
+
+
+RECURSIVE
+FUNCTION factorial(number)
+  IF number IS LESS THAN 0 THEN
+    ERROR
+  ELSE IF number IS 0 OR 1 THEN
+    RETURN 1
+  ELSE
+    CALL factorial WITH number MINUS one RETURNING previousFactorial
+    RETURN number TIMES previousFactorial
+  END IF
+END FUNCTION
+
+
+ITERATIVE
+FUNCTION factorial(number)
+  IF number < 0
+    ERROR
+  ELSE
+    SET result to 1
+
+    FOR i = number DOWN to 2
+      SET result to result * i
+    END FOR
+
+    RETURN result
+  END IF
+END FUNCTION
+
+	Factorial: Both the recursive and iterative factorial functions begin by handling the base of returning an error if the number argument is less than 0.  
+
+
+5. Given a multi-dimensional collection (such as an array) where the number of dimensions is unknown, write a recursive algorithm to count the number of items in the entire collection.
+
+
+
+
+
+
+
+6. A palindrome is a word or phrase whose spelling is the same either direction (e.g., racecar). Write a recursive algorithm to determine if a given word or phrase is a palindrome.
+
+
+
+
+
+
+
+
+7. Google Easter Egg: Google the term "recursion". Google will prompt you with "Did you mean: recursion". Explain why this behavior exhibits properties of recursion.
