@@ -18,51 +18,46 @@ EXERCISES
 	Fibonacci sequence
 
 
+
 3. When should you use recursion, and when should you avoid recursion? Give examples for each.
 
-	Recursion should only be used if there is no iterative solution possible to solve the problem, or the iterative solution is so complicated to implement that it's not worth it.  Recursion is a more expensive procedure than iteration.  A large data, cycled through with recursion, can have exponential time complexity.  Whereas, a single for or while loop will have linear time complexity and be much less expensive to implement than a comparable recursive solution. 
+	Recursion should only be used if there is no iterative solution possible to solve the problem, or the iterative solution is so complicated to implement that it's not worth it.  Recursion is a more expensive procedure than iteration.  A large data set, cycled through with recursion, can have exponential time complexity.  Whereas, a single for or while loop will have linear time complexity and be much less expensive to implement than a comparable recursive solution. 
 
 
 
 
 4. Compare the recursive and iterative solutions to the three algorithms from the checkpoint (factorial, maximum, and fibonacci). What is similar, and what is different?
 
-
-RECURSIVE
-FUNCTION factorial(number)
-  IF number IS LESS THAN 0 THEN
-    ERROR
-  ELSE IF number IS 0 OR 1 THEN
-    RETURN 1
-  ELSE
-    CALL factorial WITH number MINUS one RETURNING previousFactorial
-    RETURN number TIMES previousFactorial
-  END IF
-END FUNCTION
+	Factorial: Both the recursive and iterative factorial functions begin by handling the base case of returning an error if the number argument is less than 0.  After handling the base case, the rest of each of the functions returns the result in a different way.  The recursive factorial function calls itself and subtracts the argument number by 1 for each call until the number meets one of the base cases.  The iterative function sets a result variable to 1 and uses a for loop to count the argument number down and multiplies the result variable by the for loop to get the factorial answer. 
 
 
-ITERATIVE
-FUNCTION factorial(number)
-  IF number < 0
-    ERROR
-  ELSE
-    SET result to 1
+	Maximum: Both functions are similar in that they each set a variable equal to the first number in the array.  The two functions differ in that the recursive function has to declare a second variable equal to all numbers in the array after the first item.  The iterative function does not need to set additional variables other than currentMaximum.  The recursive function also requires more lines of code to add base cases at the beginning of the function that are not necessary for the iterative version.  
 
-    FOR i = number DOWN to 2
-      SET result to result * i
-    END FOR
 
-    RETURN result
-  END IF
-END FUNCTION
+	Fibonacci: Both the recursion and iteration methods achieve the result of returning the required Fibonacci. However, the two methods are very different in how they return the correct result.  The recursion method appears more complicated since it requires calling itself twice for each recursion, once for 'twoBack' and once for 'oneBack'. 
 
-	Factorial: Both the recursive and iterative factorial functions begin by handling the base of returning an error if the number argument is less than 0.  
+
 
 
 5. Given a multi-dimensional collection (such as an array) where the number of dimensions is unknown, write a recursive algorithm to count the number of items in the entire collection.
 
 
+const fakeArray = [3, 4, 2, [7,43,2], 6, [4,6], 55, 3, 7];
 
+let count = 1;
+
+const countItems = (arr, index=0) => {
+  if (Array.isArray(arr[index])) {
+    countItems(arr[index]);
+  }
+  if (arr[index + 1]) {
+    count++
+    countItems(arr, index+1)
+  }
+  return count;
+}
+
+console.log(countItems(fakeArray));
 
 
 
@@ -70,10 +65,31 @@ END FUNCTION
 6. A palindrome is a word or phrase whose spelling is the same either direction (e.g., racecar). Write a recursive algorithm to determine if a given word or phrase is a palindrome.
 
 
+const isPalindrome = function(string) {
+  if (string.length === 0 || string.length === 1) {
+    return true;
+  }
 
+  if (string[0] === string[string.length - 1]) {
+    return isPalindrome(string.slice(1, string.length - 1));
+  }
+  return false;
+}
 
+console.log(isPalindrome('kayak'))
 
 
 
 
 7. Google Easter Egg: Google the term "recursion". Google will prompt you with "Did you mean: recursion". Explain why this behavior exhibits properties of recursion.
+
+	This behavior of Google plays on the idea of 'recursion' because anything that is recursive refers to itself.  Since the Google search engine asks "Did you mean: recursion?", it is like the search engine is saying, "To ask about recursion, you must first understand that you are asking about recursion". 
+
+
+
+
+
+
+
+
+
