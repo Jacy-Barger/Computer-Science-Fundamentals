@@ -42,22 +42,24 @@ EXERCISES
 5. Given a multi-dimensional collection (such as an array) where the number of dimensions is unknown, write a recursive algorithm to count the number of items in the entire collection.
 
 
-const fakeArray = [3, 4, 2, [7,43,2], 6, [4,6], 55, 3, 7];
+const testArray = [3, 4, 2, [7,43,2], 6, [4,6], 55, 3, 7];
 
-let count = 1;
-
-const countItems = (arr, index=0) => {
-  if (Array.isArray(arr[index])) {
-    countItems(arr[index]);
-  }
-  if (arr[index + 1]) {
-    count++
-    countItems(arr, index+1)
-  }
-  return count;
+const countItems = (arr) => {
+  let counter = 0;
+  for ( var i = 0; i < arr.length; i++ ){
+    if ( Array.isArray(arr[i]) ){
+      counter += countItems(arr[i]);
+    }else{ 
+      counter++;
+    }
+   } 
+   return counter;
 }
 
-console.log(countItems(fakeArray));
+console.log(countItems(testArray));
+
+console.log(countItems([]));
+
 
 
 
@@ -65,18 +67,19 @@ console.log(countItems(fakeArray));
 6. A palindrome is a word or phrase whose spelling is the same either direction (e.g., racecar). Write a recursive algorithm to determine if a given word or phrase is a palindrome.
 
 
-const isPalindrome = function(string) {
-  if (string.length === 0 || string.length === 1) {
+const isPalindrome = function(testString) {
+  if (testString.length === 0 || testString.length === 1) {
     return true;
   }
 
-  if (string[0] === string[string.length - 1]) {
-    return isPalindrome(string.slice(1, string.length - 1));
+  if (testString[0] === testString[testString.length - 1]) {
+    return isPalindrome(testString.slice(1, testString.length - 1));
   }
   return false;
 }
 
-console.log(isPalindrome('kayak'))
+console.log(isPalindrome('kayak'));
+console.log(isPalindrome('random'));
 
 
 
