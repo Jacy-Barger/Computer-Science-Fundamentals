@@ -3,13 +3,13 @@ SHORT ANSWER
 
 1.  What is a real-life scenario that uses linear search?
 
-	You are at a new coffee shop that supposedly sells really good sandwiches.  There is one sandwich in particular called the Deluxe Deli sandwich that you would like to try but you want to know the price first.  You enter the coffee shop and notice a whiteboard menu with about 15 different sandwiches on it, in no particular order.  You scan each sandwich on the menu starting with the one on the top and work your way down until you find the Deluxe Deli sandwich and verify its price is in your budget. 
+	You are at a new coffee shop that reportedly sells really good sandwiches.  There is one sandwich in particular called the Deluxe Deli sandwich that you would like to try but you want to know the price first.  You enter the coffee shop and notice a whiteboard menu with 15 different sandwiches on it, in no particular order.  You scan each sandwich on the menu starting with the one on the top and work your way down until you find the Deluxe Deli sandwich and verify the price is in your budget. 
 
 
 
 2.  What is a real-life scenario that uses binary search?
 
-	You are at an airport and looking for the right terminal so you can reach your gate.  There are two large hallways extending in opposite directions, with each hallway/terminal having about half of the airport's gates.  By looking at signs posted at the entrance to each hallway, you notice that the gates are in alphabetical order and that your particular gate (Gate D) is down the left hallway since that hallway's first gate is 'A' and last gate is 'F'.  
+	You are at an airport and looking for the correct terminal so you can reach your gate.  There are two large hallways extending in opposite directions, with each hallway/terminal having about half of the airport's gates.  By looking at signs posted at the entrance to each hallway, you notice that the gates are in alphabetical order and that your particular gate (Gate D) is down the left hallway since that hallway's first gate is 'A' and last gate is 'F'.  
 
 
 
@@ -27,7 +27,7 @@ SHORT ANSWER
 
 5. Given an unsorted collection of a million items, which algorithm would you choose between linear search and binary search? Explain your reasoning.
 
-	Linear search would be the better choice.  The reason is due to the unsorted data.  Binary search would normally be the better choice for such a large collection of data, but the unsorted nature of the collection makes a binary search unfeasible.  A linear search iterating through each item one-by-one would have to be used. 
+	Linear search would be the better choice.  The reason is due to the unsorted data.  Binary search would normally be the better choice for such a large collection of data, but the unsorted nature of the collection makes a binary search unfeasible.  
 
 
 
@@ -38,41 +38,60 @@ SHORT ANSWER
 
 
 
+
+
 PROGRAMMING ASSIGNMENT:
+
 
 1. You and a friend have set a wager to see who can find the word "Albatross" in the dictionary the fastest. Write a program to allow you to win the bet.
 
-	Since a dictionary would have a large number of sorted words, a binary search would be the better choice to win the bet. 
+
+const dictionary = ['Abbot', 'Abreviate', 'Abridge', 'Acid', 'Aerial', 'Alaska', 'Albatross', 'Allocate', 'Amatuer', 'Barn', 'Belguim', 'Candle', 'Carpal', 'Certification', 'Chemistry', 'Danger', 'Degree', 'Disapprove', 'Donation']
+
+const searchDictionary = function(collection, word) {
+  let low = 0;
+  let high = collection.length - 1;
+    
+  while (low <= high) {
+    let mid = (low + high) / 2;
+    mid = parseInt(mid);
+    if (word < collection[mid]) { 
+      high = parseInt(mid - 1);
+    }
+    else if (word > collection[mid]) {
+      low = parseInt(mid + 1);
+    }
+    else {
+      return ('That word is located at index number ' + mid + ' in the dictionary');
+    }
+  }
+   return ('That word is not in the dictionary');
+}
 
 
-
-
-
-
+console.log(searchDictionary(dictionary, 'Albatross')); 
+console.log(searchDictionary(dictionary, 'Heavy'));
 
 
 
 
 2. You work at a pet store, and a child has asked you to net the only white-spotted goldfish from the fish tank. Write a program that will help you net the right fish.
 
-	Since you are looking for a single item in a small, unordered collection, a linear search would be the better choice.
-
-
-
+	
 const goldFishTank = ['Bubble Eye', 'Telescope', 'Lionhead', 'Ryukin', 'Telescope', 'Fantail', 'Lionhead', 'Lionhead', 'Pearlscale', 'White Spotted', 'Telescope']
-
 
 const fishFind = function(collection, fish) {
   let result = null, value;
-  
   for ( let i = 0; i < collection.length; i++ ) {
     value = collection[i];
     if (value === fish) {
       result = collection[i];
+      return 'Here, I caught your ' + result + ' goldfish.';
     }
   }
-  return 'Here, I caught your ' + result + ' goldfish.';
+ return 'Sorry, we are out of that fish';
 }
 
 console.log(fishFind(goldFishTank, 'White Spotted'))
+
 
