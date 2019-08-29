@@ -3,9 +3,27 @@ EXERCISES
 
 1. Implement a solution for bubble sort.
 
-	
 
+const randomArray = [4, 56, 3, 5, 2, 61, 6, 42, 87, 9, 8, 19, 1]
 
+const bubbleSort = function(arr) {
+  let swapped = null;
+  do {
+  swapped = false;
+    for ( let i = 0; i < arr.length - 1; i++ ) {
+      if (arr[i] > arr[i + 1]) {
+        let temp = arr[i]; 
+        arr[i] = arr[i + 1];
+        arr[i + 1] = temp;
+        swapped = true;
+      }
+    }
+  }
+  while (swapped); 
+  return arr;
+}
+
+console.log(bubbleSort(randomArray)); 
 
 
 
@@ -13,20 +31,48 @@ EXERCISES
 2. Write pseudocode for quicksort.
 
 
-
-
+FUNCTION quickSort(array, left, right) 
+    IF left < right THEN  
+        SET pivot TO right  
+        SET partitionIndex TO CALL partition(array, pivot, left, right) 
+        CALL quickSort(array, left, partitionIndex - 1)  
+        CALL quickSort(array, partitionIndex - 1, right) 
+    END IF
+    RETURN Array
+END FUNCTION
+    
+FUNCTION partition(array, pivot, left, right) 
+    SET pivotValue - array[pivot]
+    SET partitionIndex = left  
+    FOR i = FIRST INDEX of array to LAST INDEX of array - 1
+        IF array[i] < pivotValue THEN  
+            CALL swap(array, i, partitionIndex) 
+            INCREMENT partitionIndex by 1 
+        END IF 
+    END FOR  
+    CALL swap(arr, right, partitionIndex) 
+    RETURN partitionIndex 
+END FUNCTION
+    
+FUNCTION swap(array, i, j) 
+    SET temp = array[i] 
+    array[i] = array[j] 
+    array[j] = temp  
+END FUNCTION 
 
 
 
 
 3. We talked about time complexity in a previous checkpoint, and how to get an idea of the efficiency of an algorithm. After looking at the pseudocode for the above sorting methods, identify why merge sort and quick sort are much more efficient than the others. Walking through each algorithm with a few sample collections may help.
 
-
-
-
-
+	Merge sort and quick sort use the 'divide and conquer' principle to sort data.  Other sorting algorithms, like bubble sort, primarily work by comparing items across the entire data set where the value in one index is compared to the value in the neighboring index.  This approach is not a problem in smaller data sets; but as the data set grows, sorting algorithms that rely on comparing items across the entire data set quickly become inefficient as the value of each index in a large data set must be compared to a larger number of values.  The 'divide and conquer' approach of a sorting algorithm, such as quick sort, is much more efficient in that it moves items to the left or right of a selected pivot point based on the values of each item.  
 
 
 
 
 4. All of the sorts addressed in this checkpoint are known as comparison sorts. Research bucket sort and explain how it works. What is the ideal input for bucket sort?
+
+	Bucket sort works by dividing items into buckets and then sorting those buckets using recursion or another sorting algorithm.  Bucket sort works best when the input is uniformly distributed over a range.  
+
+
+
